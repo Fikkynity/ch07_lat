@@ -8,10 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
+import com.example.taskmanager.data.seeder.DatabaseSeeder
 import com.example.taskmanager.ui.navigation.TaskNavigation
 import com.example.taskmanager.ui.theme.TaskManagerTheme
 import com.example.taskmanager.ui.viewmodel.TaskViewModel
 import com.example.taskmanager.ui.viewmodel.TaskViewModelFactory
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     
@@ -25,11 +28,11 @@ class MainActivity : ComponentActivity() {
         
         // Seed initial data
         val app = application as TaskManagerApplication
-        val seeder = com.example.taskmanager.data.seeder.DatabaseSeeder(
+        val seeder = DatabaseSeeder(
             app.categoryRepository,
             app.taskRepository
         )
-        kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO).launch {
+        lifecycleScope.launch {
             seeder.seedIfEmpty()
         }
         

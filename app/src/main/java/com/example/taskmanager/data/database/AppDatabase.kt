@@ -12,7 +12,7 @@ import com.example.taskmanager.data.entity.Task
 @Database(
     entities = [Task::class, Category::class],
     version = 2,
-    exportSchema = true
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     
